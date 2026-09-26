@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Проверка объекта в Турции по государственному кадастру: проходит ли он под ВНЖ, гражданство или просто жильё. Первая проверка бесплатно.">
+<meta name="description" content="Проходит ли объект в Турции под ВНЖ или гражданство: расчёт порога по курсу ЦБ Турции и проверка по государственному кадастру. Первая проверка бесплатно.">
 <meta property="og:title" content="Пространство — проверка объекта в Турции">
-<meta property="og:description" content="Сверяем объявление с государственным реестром Турции и считаем порог по курсу ЦБ. Первая проверка бесплатно.">
+<meta property="og:description" content="Посчитайте порог под ВНЖ или гражданство прямо на странице. Потом пришлите объект — сверю с кадастром.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://prostranstvo-alanya.ru/">
 <meta property="og:locale" content="ru_RU">
@@ -13,348 +13,443 @@
 <title>Пространство Аланья</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
-  --ground:#EDF1EF; --surface:#FFFFFF; --panel:#E2E9E5;
-  --line:#C7D2CC; --line-soft:#DBE3DE;
-  --ink:#14201D; --ink-2:#3E4E48; --ink-3:#63756F;
-  --accent:#0E6B66; --accent-ink:#0B5551; --accent-soft:#DAE9E6;
-  --good:#2C7A58; --good-soft:#DCEDE3;
-  --warn:#8A5A12; --warn-soft:#F3E6CF;
-  --bad:#A33321;
-  --tg:#229ED9;
+  --ground:#F4F2ED; --surface:#FFFFFF; --panel:#EDE9E0;
+  --line:#D9D3C7; --line-soft:#E7E2D8;
+  --ink:#1C1A16; --ink-2:#55504A; --ink-3:#847D73;
+  --accent:#7A5B1F; --accent-ink:#5F4616; --accent-soft:#F0E7D6;
+  --good:#2C7A58; --good-soft:#DEEDE5;
+  --warn:#C0791B; --warn-soft:#F7E8D2;
+  --bad:#A3321F;  --bad-soft:#F6DFDA;
+  --idle:#8E887E; --idle-soft:#E9E5DD;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --ground:#0D1415; --surface:#141E1F; --panel:#1B2626;
-    --line:#2A3939; --line-soft:#243130;
-    --ink:#E7EEEC; --ink-2:#A0B2B0; --ink-3:#728584;
-    --accent:#3FB2A7; --accent-ink:#5FC7BC; --accent-soft:#12312F;
-    --good:#56AE83; --good-soft:#12301F;
-    --warn:#D3943F; --warn-soft:#33240F;
-    --bad:#E06A52;
+    --ground:#13120F; --surface:#1B1915; --panel:#232019;
+    --line:#332F26; --line-soft:#2B281F;
+    --ink:#EFEBE2; --ink-2:#AEA79B; --ink-3:#7E776C;
+    --accent:#C9973C; --accent-ink:#DDAE55; --accent-soft:#2C2314;
+    --good:#5BB088; --good-soft:#15301F;
+    --warn:#DFA04A; --warn-soft:#332512;
+    --bad:#DF7259;  --bad-soft:#3A1B14;
+    --idle:#7A7368; --idle-soft:#26231C;
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --ground:#0D1415; --surface:#141E1F; --panel:#1B2626;
-  --line:#2A3939; --line-soft:#243130;
-  --ink:#E7EEEC; --ink-2:#A0B2B0; --ink-3:#728584;
-  --accent:#3FB2A7; --accent-ink:#5FC7BC; --accent-soft:#12312F;
-  --good:#56AE83; --good-soft:#12301F;
-  --warn:#D3943F; --warn-soft:#33240F;
-  --bad:#E06A52;
+  --ground:#13120F; --surface:#1B1915; --panel:#232019;
+  --line:#332F26; --line-soft:#2B281F;
+  --ink:#EFEBE2; --ink-2:#AEA79B; --ink-3:#7E776C;
+  --accent:#C9973C; --accent-ink:#DDAE55; --accent-soft:#2C2314;
+  --good:#5BB088; --good-soft:#15301F;
+  --warn:#DFA04A; --warn-soft:#332512;
+  --bad:#DF7259;  --bad-soft:#3A1B14;
+  --idle:#7A7368; --idle-soft:#26231C;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--ground);color:var(--ink);
   font-family:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
-h1,h2,h3{margin:0;text-wrap:balance}
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:700;letter-spacing:-0.015em}
 p{margin:0}
 ul,ol{margin:0;padding:0;list-style:none}
-a{color:inherit}
+a{color:var(--accent-ink)}
 .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
 
-.sheet{max-width:620px;margin:0 auto;background:var(--surface);min-height:100%;
-  border-inline:1px solid var(--line)}
-.pad{padding-inline:clamp(16px,5vw,34px)}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:clamp(16px,4vw,32px)}
+.narrow{max-width:700px}
 
-header{background:var(--panel);border-bottom:1px solid var(--line);padding-block:14px}
-.brand{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:21px;letter-spacing:.13em}
-.brand-sub{font-family:"Barlow Condensed",sans-serif;font-size:13px;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--ink-2);margin-top:2px}
+/* шапка */
+.top{border-bottom:1px solid var(--line);background:var(--surface)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding-block:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px}
+.brand svg{width:30px;height:30px;flex:none}
+.brand b{font-size:17px;font-weight:800;letter-spacing:.06em}
+.brand span{display:block;font-size:12.5px;color:var(--ink-3);letter-spacing:.02em}
+.top a.tg{font-size:14.5px;font-weight:700;text-decoration:none;white-space:nowrap}
 
-.hero{padding-block:30px 26px;border-bottom:1px solid var(--line)}
-h1{font-family:"Barlow Condensed",sans-serif;font-weight:700;
-  font-size:clamp(31px,8.2vw,45px);line-height:1.03;text-transform:uppercase}
-.hero p{margin-top:14px;color:var(--ink-2);font-size:17px}
-.badge{display:inline-block;margin-top:18px;background:var(--good-soft);color:var(--good);
-  font-weight:800;font-size:14.5px;padding:8px 15px;border-radius:999px}
+/* герой */
+.hero{padding-block:clamp(32px,6vw,58px) clamp(28px,5vw,48px)}
+.hero .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);
+  gap:clamp(28px,4vw,52px);align-items:start}
+h1{font-size:clamp(28px,4.4vw,42px);line-height:1.12}
+.sub{margin-top:16px;font-size:clamp(16px,1.7vw,18px);color:var(--ink-2);max-width:32em}
+.marks{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}
+.mark{font-size:13.5px;font-weight:600;padding:6px 11px;border-radius:999px;
+  background:var(--panel);color:var(--ink-2);border:1px solid var(--line)}
 
-section{padding-block:26px;border-bottom:1px solid var(--line-soft)}
-.eyebrow{font-family:"Barlow Condensed",sans-serif;font-size:13.5px;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-h2{font-family:"Barlow Condensed",sans-serif;font-size:25px;font-weight:700;
-  text-transform:uppercase;line-height:1.08}
-.lede{color:var(--ink-2);margin-top:10px}
+/* инструмент */
+.tool{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+  padding:clamp(18px,2.4vw,24px)}
+.tool h2{font-size:15px;letter-spacing:.02em;color:var(--ink-3);font-weight:700}
+.fields{display:grid;gap:12px;margin-top:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lab{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+input,select{width:100%;background:var(--surface);color:var(--ink);
+  border:1px solid var(--line);border-radius:9px;padding:10px 11px;
+  font-family:inherit;font-size:15.5px;font-weight:600}
+input.mono{font-family:"IBM Plex Mono",monospace}
+.chk{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:600;
+  border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+.chk input{width:18px;height:18px;flex:none;accent-color:var(--accent)}
 
-/* три цели */
-.goals{margin-top:16px;display:grid;gap:10px}
-.goal{border:1px solid var(--line);border-left-width:5px;border-radius:11px;
-  padding:14px 15px;background:var(--panel)}
-.goal.res{border-left-color:var(--accent)}
-.goal.cit{border-left-color:var(--good)}
-.goal.hou{border-left-color:var(--ink-3)}
-.goal .t{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.goal .n{font-family:"Barlow Condensed",sans-serif;font-size:19px;font-weight:700;text-transform:uppercase}
-.goal .p{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:15.5px;white-space:nowrap}
-.goal small{display:block;margin-top:6px;font-size:14.5px;color:var(--ink-2)}
+.out{margin-top:16px;border-top:1px solid var(--line-soft);padding-top:16px;display:grid;gap:8px}
+.row{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:center;
+  border:1px solid var(--line);border-left-width:4px;border-radius:9px;padding:10px 12px}
+.row .dot{width:11px;height:11px;border-radius:50%;flex:none}
+.row .nm{font-weight:700;font-size:14.5px;line-height:1.2}
+.row .nm small{display:block;font-weight:500;font-size:12.5px;color:var(--ink-2);margin-top:1px}
+.row .tg2{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.g{border-left-color:var(--good);background:var(--good-soft)}
+.g .dot{background:var(--good)} .g .tg2{color:var(--good)}
+.w{border-left-color:var(--warn);background:var(--warn-soft)}
+.w .dot{background:var(--warn)} .w .tg2{color:var(--warn)}
+.b{border-left-color:var(--bad);background:var(--bad-soft)}
+.b .dot{background:var(--bad)} .b .tg2{color:var(--bad)}
+.i{border-left-color:var(--idle);background:var(--idle-soft)}
+.i .dot{background:var(--idle)} .i .tg2{color:var(--ink-3)}
 
-.gets{margin-top:16px;border-top:1px solid var(--ink)}
-.gets li{display:grid;grid-template-columns:24px 1fr;gap:12px;padding:13px 0;
-  border-bottom:1px solid var(--line-soft)}
-.gets li:last-child{border-bottom:0}
-.tick{color:var(--good);font-weight:800;font-size:17px;line-height:1.4}
-.gets b{display:block;font-size:16px}
-.gets small{display:block;font-size:14.5px;color:var(--ink-2);margin-top:3px}
+.why{margin-top:12px;font-size:14.5px;color:var(--ink-2)}
+.conv{margin-top:8px;font-size:12.5px;color:var(--ink-3)}
+.note{margin-top:14px;padding-top:13px;border-top:1px solid var(--line-soft);
+  font-size:12.5px;color:var(--ink-3);line-height:1.5}
 
-.stepbox{margin-top:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.stephead{display:flex;gap:12px;align-items:center;background:var(--panel);
-  padding:13px 16px;border-bottom:1px solid var(--line)}
-.stepn{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:14px;color:#fff;
-  background:var(--accent);width:28px;height:28px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;flex:none}
-.steptitle{font-family:"Barlow Condensed",sans-serif;font-size:20px;font-weight:700;text-transform:uppercase}
-.stepbody{padding:16px}
-.stepbody p{font-size:15.5px;color:var(--ink-2)}
-.stepbody p + p{margin-top:10px}
-.stepbody b{color:var(--ink)}
-.howto{margin-top:12px;counter-reset:h}
-.howto li{position:relative;padding:7px 0 7px 26px;font-size:15px;color:var(--ink-2);counter-increment:h}
-.howto li:before{content:counter(h)".";position:absolute;left:0;top:8px;color:var(--accent);
-  font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:13.5px}
-.code{display:inline-block;background:var(--accent-soft);color:var(--accent-ink);
-  font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:16px;
-  padding:5px 11px;border-radius:7px;margin-top:10px;letter-spacing:.02em}
+/* секции */
+section{padding-block:clamp(26px,4vw,40px);border-top:1px solid var(--line-soft)}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent-ink);margin-bottom:9px}
+h2.sec{font-size:clamp(21px,2.6vw,26px)}
+.lede{margin-top:9px;color:var(--ink-2)}
 
-.btns{display:grid;gap:11px;margin-top:20px}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;
-  min-height:58px;border-radius:12px;font-weight:800;font-size:17px;
-  text-decoration:none;border:0;cursor:pointer;width:100%;
-  font-family:"Manrope",sans-serif;transition:transform .08s ease,filter .15s ease}
-.btn:active{transform:scale(.985)}
-.btn:hover{filter:brightness(1.07)}
-.btn-tg{background:var(--tg);color:#fff}
-.btn-copy{background:var(--panel);color:var(--ink);border:1px solid var(--line);min-height:52px;font-size:16px}
-.btn svg{width:22px;height:22px;flex:none}
-.copied{display:block;text-align:center;font-size:14px;color:var(--good);
-  margin-top:9px;min-height:20px;font-weight:700}
-.tpl{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;
-  padding:14px 15px;font-family:"IBM Plex Mono",monospace;font-size:13.5px;
-  color:var(--ink-2);line-height:1.7;white-space:pre-wrap}
+.cards{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:15px 16px}
+.card b{display:block;font-size:15px}
+.card small{display:block;font-size:13.5px;color:var(--ink-2);margin-top:5px;line-height:1.5}
 
-.price{display:grid;gap:11px;margin-top:16px}
-.tier{border:1px solid var(--line);border-radius:11px;padding:15px 16px;background:var(--panel)}
+.send{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:15px 16px}
+.step .n{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--accent-ink)}
+.step b{display:block;font-size:15px;margin-top:3px}
+.step small{display:block;font-size:13.5px;color:var(--ink-2);margin-top:5px;line-height:1.5}
+.code{display:inline-block;margin-top:9px;background:var(--accent-soft);color:var(--accent-ink);
+  font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:14.5px;
+  padding:4px 9px;border-radius:6px}
+
+.tiers{margin-top:16px;display:grid;gap:9px}
+.tier{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 15px;flex-wrap:wrap}
 .tier.free{border-color:var(--good);background:var(--good-soft)}
-.tier .t{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-.tier .n{font-family:"Barlow Condensed",sans-serif;font-size:19px;font-weight:700;text-transform:uppercase}
-.tier .p{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:17px;white-space:nowrap}
+.tier b{font-size:15.5px}
+.tier small{display:block;font-size:13.5px;color:var(--ink-2);margin-top:3px;max-width:44em}
+.tier .p{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:15.5px;white-space:nowrap}
 .tier.free .p{color:var(--good)}
-.tier small{display:block;margin-top:6px;font-size:14.5px;color:var(--ink-2)}
 
-.offer{margin-top:16px;background:var(--accent-soft);border:1px solid var(--accent);
-  border-radius:12px;padding:18px}
-.offer h3{color:var(--accent);font-size:17px;font-weight:800;line-height:1.3}
-.offer p{margin-top:9px;font-size:15px;color:var(--ink-2)}
-.offer p + p{margin-top:9px}
+.box{margin-top:16px;border:1px solid var(--accent);background:var(--accent-soft);
+  border-radius:12px;padding:17px}
+.box h3{color:var(--accent-ink);font-size:16px}
+.box p{margin-top:8px;font-size:14.5px;color:var(--ink-2)}
+.box p + p{margin-top:8px}
 
-.honest{background:var(--warn-soft);border:1px solid var(--warn);border-radius:12px;padding:18px;margin-top:16px}
-.honest h3{color:var(--warn);font-size:17px;font-weight:800;line-height:1.3}
-.honest p{margin-top:9px;font-size:15px;color:var(--ink-2)}
-.honest p + p{margin-top:9px}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;min-height:52px;padding:0 26px;border-radius:11px;
+  background:var(--accent);color:#FFF;font-weight:800;font-size:16.5px;text-decoration:none;
+  transition:filter .15s ease,transform .08s ease}
+.cta:hover{filter:brightness(1.1)} .cta:active{transform:scale(.99)}
+.cta svg{width:20px;height:20px;flex:none}
 
-footer{padding-block:24px 40px;font-size:13px;color:var(--ink-3);line-height:1.6}
-.sticky{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);
-  padding:12px clamp(16px,5vw,34px) calc(12px + env(safe-area-inset-bottom,0px));z-index:5}
-@media (prefers-reduced-motion:reduce){
-  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+footer{border-top:1px solid var(--line);background:var(--surface);
+  padding-block:22px 34px;font-size:12.5px;color:var(--ink-3);line-height:1.6}
+
+@media (max-width:820px){
+  .hero .grid{grid-template-columns:minmax(0,1fr)}
 }
+@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
 </style>
 </head>
 <body>
-<article class="sheet">
-
-<header class="pad">
-  <div class="brand">ПРОСТРАНСТВО</div>
-  <div class="brand-sub">проверка объекта · Аланья</div>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 3 100 100" aria-hidden="true">
+        <path d="M20 30 H80 M20 30 V76 M80 30 V76 M50 30 V76" fill="none" stroke="var(--accent)" stroke-width="9" stroke-linecap="square"></path>
+        <path d="M20 32 A11 11 0 0 1 20 54" fill="none" stroke="var(--accent)" stroke-width="7"></path>
+        <path d="M59.19 48.81 A13 13 0 1 0 59.19 67.19" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round"></path>
+      </svg>
+      <div>
+        <b>ПРОСТРАНСТВО</b>
+        <span>проверка объекта · Аланья</span>
+      </div>
+    </div>
+    <a class="tg" href="https://t.me/spikalilia" rel="noopener" id="tg-top">Написать в Telegram</a>
+  </div>
 </header>
 
-<div class="pad hero">
-  <h1>Что на самом деле<br>написано в кадастре<br>про эту квартиру</h1>
-  <p>Сверяем объявление с государственным реестром Турции и считаем, проходит ли объект под вашу цель — ВНЖ, гражданство или просто жильё. Показываем, где сходится, а где нет, и о чём спросить продавца.</p>
-  <span class="badge">Первая проверка — бесплатно</span>
+<div class="hero">
+  <div class="wrap grid">
+    <div>
+      <h1>Проходит ли ваш объект под ВНЖ или гражданство</h1>
+      <p class="sub">Посчитайте прямо здесь: порог считается по цене в ТАПУ и курсу ЦБ Турции на дату оформления. Потом пришлите объект — сверю с государственным кадастром.</p>
+      <div class="marks">
+        <span class="mark">Кадастр TKGM</span>
+        <span class="mark">Курс ЦБ Турции</span>
+        <span class="mark">Первая проверка бесплатно</span>
+      </div>
+      <a class="cta" href="https://t.me/spikalilia" rel="noopener" id="tg-hero">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.64 6.8-1.55 7.31c-.12.52-.42.65-.85.4l-2.35-1.73-1.13 1.09c-.13.13-.24.24-.48.24l.17-2.43 4.42-4c.19-.17-.04-.27-.3-.1l-5.46 3.44-2.35-.73c-.51-.16-.52-.51.11-.76l9.17-3.54c.42-.15.79.1.6.81z"/></svg>
+        Проверить мой объект
+      </a>
+    </div>
+
+    <div class="tool">
+      <h2>Предварительный расчёт</h2>
+      <div class="fields">
+        <div class="two">
+          <label>
+            <span class="lab">Цена</span>
+            <input class="mono" id="price" type="number" min="0" step="1000" value="205000" inputmode="numeric">
+          </label>
+          <label>
+            <span class="lab">Валюта</span>
+            <select id="cur">
+              <option value="USD" selected>доллары</option>
+              <option value="EUR">евро</option>
+              <option value="TRY">лиры</option>
+            </select>
+          </label>
+        </div>
+        <div class="two">
+          <label>
+            <span class="lab">Цель</span>
+            <select id="goal">
+              <option value="residence" selected>ВНЖ</option>
+              <option value="citizenship">гражданство</option>
+              <option value="housing">просто жильё</option>
+            </select>
+          </label>
+          <label>
+            <span class="lab">Назначение</span>
+            <select id="kind">
+              <option value="residential" selected>жильё</option>
+              <option value="apart">апарт</option>
+              <option value="commercial">коммерция</option>
+              <option value="land">земля</option>
+            </select>
+          </label>
+        </div>
+        <label class="chk">
+          <input type="checkbox" id="done" checked>
+          <span>объект сдан и пригоден для проживания</span>
+        </label>
+      </div>
+
+      <div class="out" id="out"></div>
+      <p class="why" id="why"></p>
+      <p class="conv mono" id="conv"></p>
+
+      <p class="note">Расчёт по цене продавца: цены в ТАПУ до сделки ещё нет. Это ориентир, а не юридическое заключение. Назначение и площадь проверяются по кадастру — пришлите объект.</p>
+    </div>
+  </div>
 </div>
 
-<section class="pad">
-  <div class="eyebrow">С чего начинается проверка</div>
-  <h2>Три разных списка</h2>
-  <p class="lede">Один и тот же объект за 70 000 € отлично подходит для жизни и не подходит ни под один статус. Поэтому первый вопрос — зачем вы покупаете.</p>
-  <div class="goals">
-    <div class="goal res">
-      <div class="t"><span class="n">ВНЖ</span><span class="p">от 200 000 $</span></div>
-      <small>По цене в ТАПУ и курсу ЦБ Турции на дату оформления. Назначение — жильё, объект достроен, собственность единоличная.</small>
-    </div>
-    <div class="goal cit">
-      <div class="t"><span class="n">Гражданство</span><span class="p">от 400 000 $</span></div>
-      <small>Плюс правило трёх цифр: банк, оценка SPK и ТАПУ должны совпасть. Плюс запрет продажи 3 года.</small>
-    </div>
-    <div class="goal hou">
-      <div class="t"><span class="n">Просто жильё</span><span class="p">любой бюджет</span></div>
-      <small>Порогов нет. Смотрим назначение, готовность, соседние участки и вид.</small>
-    </div>
+<div class="wrap narrow">
+
+<section>
+  <div class="eyebrow">Что входит в проверку</div>
+  <h2 class="sec">Шесть пунктов</h2>
+  <div class="cards">
+    <div class="card"><b>Порог под вашу цель</b><small>Цена в долларах по курсу ЦБ Турции против 200 000 $ или 400 000 $. Отдельно отмечаю, когда запас меньше 5%.</small></div>
+    <div class="card"><b>Участок под домом</b><small>Ада, парсель, площадь, назначение земли и дословная запись реестра.</small></div>
+    <div class="card"><b>Сверка с объявлением</b><small>Площадь, этажность, назначение. Где заявленное расходится с кадастром.</small></div>
+    <div class="card"><b>Что вокруг</b><small>Соседние участки, где разрешено строить, с расстоянием и направлением.</small></div>
+    <div class="card"><b>Вид на море</b><small>Расчёт по высотам: закроет ли застройка вид с вашего этажа.</small></div>
+    <div class="card"><b>Вопросы продавцу</b><small>Готовые формулировки на турецком, чтобы агент понял с первого раза.</small></div>
   </div>
 </section>
 
-<section class="pad">
-  <div class="eyebrow">Что вы получите</div>
-  <h2>Отчёт на две страницы</h2>
-  <ul class="gets">
-    <li><span class="tick">✓</span><span>
-      <b>Проходит ли под вашу цель</b>
-      <small>Пересчитываем цену в доллары по курсу ЦБ Турции и сверяем с порогом. Отдельно отмечаем, когда запас меньше 5% — курс может увести сумму в ТАПУ ниже порога.</small>
-    </span></li>
-    <li><span class="tick">✓</span><span>
-      <b>Участок под домом</b>
-      <small>Номер, площадь, статус и дословная запись реестра. Что государство пишет про это здание.</small>
-    </span></li>
-    <li><span class="tick">✓</span><span>
-      <b>Сверка с объявлением</b>
-      <small>Этажность, площадь, назначение. Где заявленное расходится с записью — и что это обычно означает.</small>
-    </span></li>
-    <li><span class="tick">✓</span><span>
-      <b>Что вокруг и что может вырасти</b>
-      <small>Соседние участки, где разрешено строить. С расстоянием и направлением.</small>
-    </span></li>
-    <li><span class="tick">✓</span><span>
-      <b>Сохранится ли вид на море</b>
-      <small>Считаем по высотам: какие участки между домом и водой, и с какой этажности застройка закроет вид с вашего этажа.</small>
-    </span></li>
-    <li><span class="tick">✓</span><span>
-      <b>Вопросы продавцу на турецком</b>
-      <small>Готовые формулировки, чтобы агент понял с первого раза.</small>
-    </span></li>
-  </ul>
-</section>
-
-<section class="pad">
+<section>
   <div class="eyebrow">Что прислать</div>
-  <h2>Две вещи, обе с телефона</h2>
-
-  <div class="stepbox">
-    <div class="stephead"><span class="stepn">1</span><span class="steptitle">Plus Code объекта</span></div>
-    <div class="stepbody">
-      <p>Короткий код, который указывает на здание <b>с точностью до четырнадцати метров</b>. Адрес словами не подходит: в Махмутларе он приводит к центру района, а не к дому.</p>
-      <ol class="howto">
-        <li>Откройте Google Карты и найдите дом</li>
-        <li>Нажмите на здание — снизу откроется карточка места</li>
-        <li>Под адресом будет строка из букв и цифр с плюсом</li>
-        <li>Нажмите на неё — код скопируется сам</li>
-      </ol>
+  <h2 class="sec">Две вещи, обе с телефона</h2>
+  <div class="send">
+    <div class="step">
+      <span class="n">01</span>
+      <b>Plus Code объекта</b>
+      <small>Код указывает на здание с точностью до 14 метров. Адрес словами не подходит: в Махмутларе он приводит к центру района. В Google Картах нажмите на дом — строка с плюсом под адресом.</small>
       <span class="code">8G8JF4Q7+2W</span>
-      <p style="margin-top:12px">Вот так он выглядит. Если найти не получается — пришлите ссылку на место из карт, разберёмся.</p>
     </div>
-  </div>
-
-  <div class="stepbox">
-    <div class="stephead"><span class="stepn">2</span><span class="steptitle">Скриншоты объявления</span></div>
-    <div class="stepbody">
-      <p>Сфотографируйте экран там, где видны <b>характеристики</b> (площадь, этаж, этажность, цена) и <b>текст описания</b>. Обычно это два-три снимка.</p>
-      <p>Подойдёт любой источник: Авито, турецкие сайты, инстаграм, переписка с агентом. Ссылка не нужна.</p>
+    <div class="step">
+      <span class="n">02</span>
+      <b>Скриншоты объявления</b>
+      <small>Экран с характеристиками — площадь, этаж, этажность, цена — и текст описания. Обычно два-три снимка. Источник любой: Авито, турецкие сайты, переписка с агентом.</small>
     </div>
   </div>
 </section>
 
-<section class="pad">
-  <div class="eyebrow">Куда отправить</div>
-  <h2>Напишите нам</h2>
-  <p class="lede">Отправьте код, скриншоты и вашу цель одним сообщением. Ответ придёт в тот же день.</p>
-
-  <div class="btns">
-    <a class="btn btn-tg" href="https://t.me/spikaliliya" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.64 6.8-1.55 7.31c-.12.52-.42.65-.85.4l-2.35-1.73-1.13 1.09c-.13.13-.24.24-.48.24l.17-2.43 4.42-4c.19-.17-.04-.27-.3-.1l-5.46 3.44-2.35-.73c-.51-.16-.52-.51.11-.76l9.17-3.54c.42-.15.79.1.6.81z"/></svg>
-      @spikaliliya
-    </a>
-    <button class="btn btn-copy" id="copy" type="button">Скопировать заготовку сообщения</button>
-  </div>
-  <span class="copied" id="msg"></span>
-
-  <div class="tpl" id="tpl">Здравствуйте! Хочу проверить объект.
-
-Plus Code:
-Этаж квартиры:
-Цель покупки: ВНЖ / гражданство / жильё
-
-Скриншоты объявления прикладываю.</div>
-</section>
-
-<section class="pad">
+<section>
   <div class="eyebrow">Сколько стоит</div>
-  <h2>Три уровня</h2>
-  <div class="price">
+  <h2 class="sec">Три уровня</h2>
+  <div class="tiers">
     <div class="tier free">
-      <div class="t"><span class="n">Первый объект</span><span class="p">бесплатно</span></div>
-      <small>Участок, запись реестра, соседи, расчёт порога под вашу цель. Коротко и по делу — чтобы вы увидели, что видно, а что нет.</small>
+      <div><b>Первый объект</b><small>Участок, запись реестра, соседи, расчёт порога под вашу цель.</small></div>
+      <span class="p">бесплатно</span>
     </div>
     <div class="tier">
-      <div class="t"><span class="n">Полный отчёт</span><span class="p">39 €</span></div>
-      <small>За каждый следующий объект. То же плюс сверка объявления с реестром, расчёт вида на море, разбор заявлений продавца и вопросы на турецком.</small>
+      <div><b>Полный отчёт</b><small>За каждый следующий объект: сверка с реестром, вид на море, разбор заявлений продавца, вопросы на турецком.</small></div>
+      <span class="p">39 €</span>
     </div>
     <div class="tier">
-      <div class="t"><span class="n">Разбор документов</span><span class="p">89 €</span></div>
-      <small>Составляем запрос продавцу на турецком и объясняем ему, как открыть выписку через Веб-Тапу. Что он пришлёт — разбираем построчно. Плюс проверка застройщика по торговому реестру: эти данные открыты, они будут в любом случае.</small>
+      <div><b>Разбор документов</b><small>Запрос продавцу на турецком и разбор того, что он пришлёт. Плюс проверка застройщика по торговому реестру — эти данные открыты.</small></div>
+      <span class="p">89 €</span>
     </div>
   </div>
 
-  <div class="offer">
+  <div class="box">
     <h3>Купите со мной — 39 € вернутся</h3>
-    <p>Дальше подбор, проверка перед сделкой и сопровождение до ключей — бесплатно для вас.</p>
-    <p>Так устроен рынок в Турции: комиссию платит продавец, и она заложена в цену объекта, кто бы вас ни привёл. Разница в том, что я не привязана к одному комплексу и не получаю бонус за конкретный объект. Отчёт из кадастра это доказывает: я показываю в том числе то, из-за чего сделка может не состояться.</p>
+    <p>Дальше подбор, проверка перед сделкой и сопровождение до ключей бесплатны для вас.</p>
+    <p>Комиссию в Турции платит продавец, и она заложена в цену объекта, кто бы вас ни привёл. Разница в том, что я не привязана к одному комплексу и не получаю бонус за конкретный объект.</p>
   </div>
 </section>
 
-<section class="pad">
+<section>
   <div class="eyebrow">Честно</div>
-  <h2>Чего не видно никому</h2>
-  <div class="honest">
-    <h3>Собственника и обременения открывает только владелец</h3>
-    <p>В Турции сведения о праве собственности, ипотеке и арестах закрыты. Их не получит ни агентство, ни юрист, ни покупатель — <b>только сам владелец</b> открывает их через государственный сервис Веб-Тапу: бесплатно, с телефона, за две минуты.</p>
-    <p>Мы скажем, как именно об этом попросить. Если продавец показывает выписку — разговор пошёл. Если отказывается — вы узнали это до задатка, и это тоже ответ.</p>
-  </div>
-  <p class="lede" style="margin-top:16px">Отчёт не является юридическим заключением и не рекомендует покупать или отказываться. Он показывает, что говорит государственный реестр, что видно со спутника и о чём стоит спросить до задатка. Требования программ меняются — перед сделкой нужен юрист.</p>
+  <h2 class="sec">Чего не видно никому</h2>
+  <p class="lede">В Турции сведения о собственнике, ипотеке и арестах закрыты. Их не получит ни агентство, ни юрист, ни покупатель — только сам владелец открывает их через государственный сервис Веб-Тапу: бесплатно, с телефона, за две минуты.</p>
+  <p class="lede">Я скажу, как именно об этом попросить. Если продавец показывает выписку — разговор пошёл. Если отказывается, вы узнали это до задатка, и это тоже ответ.</p>
+  <a class="cta" href="https://t.me/spikalilia" rel="noopener" id="tg-bottom">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.64 6.8-1.55 7.31c-.12.52-.42.65-.85.4l-2.35-1.73-1.13 1.09c-.13.13-.24.24-.48.24l.17-2.43 4.42-4c.19-.17-.04-.27-.3-.1l-5.46 3.44-2.35-.73c-.51-.16-.52-.51.11-.76l9.17-3.54c.42-.15.79.1.6.81z"/></svg>
+    Прислать объект
+  </a>
 </section>
 
-<footer class="pad">
-  <b>ПРОСТРАНСТВО</b> · проверка недвижимости на средиземноморском побережье Турции<br>
-  prostranstvo-alanya.ru · канал @prostranstvo_alanya · заявки @spikaliliya<br><br>
-  Данные: государственный кадастр Турции (TKGM), Центральный банк Турции (TCMB), торговый реестр (Ticaret Sicil), спутниковые снимки, открытая модель рельефа.<br><br>
-  Пороги: ВНЖ от 200 000 $ (с 16.10.2023), гражданство от 400 000 $ — по цене в ТАПУ и курсу ЦБ Турции на дату оформления.
-</footer>
-
-<div class="sticky">
-  <a class="btn btn-tg" href="https://t.me/spikaliliya" rel="noopener">Проверить мой объект</a>
 </div>
 
-</article>
+<footer>
+  <div class="wrap narrow">
+    ПРОСТРАНСТВО · проверка недвижимости на средиземноморском побережье Турции<br>
+    prostranstvo-alanya.ru · <span id="foot-tg">@spikalilia</span><br><br>
+    Пороги: ВНЖ от 200 000 $ (с 16.10.2023), гражданство от 400 000 $ — по цене в ТАПУ и курсу ЦБ Турции на дату оформления. Курс в расчёте: 25.09.2026, 1 $ = 48,8780 ₺, 1 € = 55,6880 ₺.<br><br>
+    Данные: государственный кадастр Турции (TKGM), Центральный банк Турции (TCMB), торговый реестр (Ticaret Sicil).<br>
+    Страница не является юридической консультацией и не рекомендует покупать или отказываться. Перед сделкой — юрист.
+  </div>
+</footer>
 
 <script>
 (function () {
   "use strict";
-  var tpl = document.getElementById("tpl");
-  var btn = document.getElementById("copy");
-  var msg = document.getElementById("msg");
 
-  btn.addEventListener("click", function () {
-    var text = tpl.textContent;
-    function done() {
-      msg.textContent = "Скопировано — вставьте в сообщение";
-      setTimeout(function () { msg.textContent = ""; }, 3500);
-    }
-    function fallback() {
-      var range = document.createRange();
-      range.selectNodeContents(tpl);
-      var sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-      msg.textContent = "Выделено — скопируйте вручную";
-      setTimeout(function () { msg.textContent = ""; }, 3500);
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done, fallback);
-    } else { fallback(); }
+  // Адрес для связи — меняется здесь и подставляется во все ссылки.
+  var TELEGRAM = "spikalilia";
+
+  // Курс ЦБ Турции (TCMB), ForexSelling на 25.09.2026.
+  var RATE = { date: "25.09.2026", USD: 48.8780, EUR: 55.6880, TRY: 1 };
+  var SIGN = { USD: "$", EUR: "€", TRY: "₺" };
+  var TH = { residence: 200000, citizenship: 400000, margin: 5 };
+  var TAG = { g: "проходит", w: "впритык", b: "не проходит", i: "нет данных" };
+
+  var el = function (id) { return document.getElementById(id); };
+
+  ["tg-top", "tg-hero", "tg-bottom"].forEach(function (id) {
+    var node = el(id);
+    if (node) { node.href = "https://t.me/" + TELEGRAM; node.target = "_blank"; }
   });
+  el("foot-tg").textContent = "@" + TELEGRAM;
+
+  function money(n) {
+    return Math.round(n).toLocaleString("ru-RU").replace(/ /g, " ");
+  }
+  function toUsd(a, cur) { return cur === "USD" ? a : a * RATE[cur] / RATE.USD; }
+
+  function level(usd, threshold) {
+    if (usd === null) return "i";
+    if (usd < threshold) return "b";
+    if (usd < threshold * (1 + TH.margin / 100)) return "w";
+    return "g";
+  }
+
+  function read() {
+    var raw = parseFloat(el("price").value);
+    var amount = isFinite(raw) && raw > 0 ? raw : null;
+    var cur = el("cur").value;
+    return {
+      amount: amount, cur: cur,
+      usd: amount === null ? null : toUsd(amount, cur),
+      goal: el("goal").value,
+      kind: el("kind").value,
+      done: el("done").checked
+    };
+  }
+
+  function rowHtml(cls, name, sub) {
+    return '<div class="row ' + cls + '"><span class="dot"></span>' +
+      '<span class="nm">' + name + '<small>' + sub + '</small></span>' +
+      '<span class="tg2">' + TAG[cls] + '</span></div>';
+  }
+
+  function render() {
+    var s = read();
+
+    var purpose = (s.kind !== "residential" || !s.done) ? "b" : "g";
+    var res = level(s.usd, TH.residence);
+    var cit = level(s.usd, TH.citizenship);
+    if (purpose === "b") { res = "b"; cit = "b"; }
+
+    if (s.goal === "housing") {
+      el("out").innerHTML = rowHtml(purpose, "Назначение и готовность", "жильё, сдан");
+    } else {
+      el("out").innerHTML =
+        rowHtml(res, "ВНЖ", "от 200 000 $ по ТАПУ") +
+        rowHtml(cit, "Гражданство", "от 400 000 $ по ТАПУ") +
+        rowHtml(purpose, "Назначение и готовность", "жильё, сдан");
+    }
+
+    var lines = [];
+    if (s.goal !== "housing" && purpose === "b") {
+      if (s.kind === "apart") lines.push("Не проходит по назначению: это апарт, а не жильё.");
+      else if (s.kind === "land") lines.push("Земля без разрешения на строительство исключена с конца 2023 года.");
+      else if (s.kind === "commercial") lines.push("Коммерция под ВНЖ и гражданство не идёт.");
+      if (!s.done) lines.push("Под статус нужен готовый и пригодный для проживания объект.");
+    } else if (s.goal === "housing") {
+      lines.push("Для жизни порогов нет — смотрим назначение и готовность.");
+    } else if (s.usd === null) {
+      lines.push("Укажите цену, чтобы посчитать порог.");
+    } else {
+      var label = s.goal === "residence" ? "ВНЖ" : "Гражданство";
+      var target = s.goal === "residence" ? TH.residence : TH.citizenship;
+      var gap = s.usd - target;
+      var state = s.goal === "residence" ? res : cit;
+      if (state === "b") {
+        lines.push(label + ": не хватает " + money(-gap) + " $ до " + money(target) + " $.");
+      } else if (state === "w") {
+        lines.push(label + ": выше порога всего на " + money(gap) +
+          " $, запас меньше 5%. Курс может опустить сумму в ТАПУ ниже порога.");
+      } else {
+        lines.push(label + ": выше порога на " + money(gap) + " $.");
+      }
+    }
+    el("why").textContent = lines.join(" ");
+
+    if (s.amount === null) {
+      el("conv").textContent = "";
+    } else if (s.cur === "USD") {
+      el("conv").textContent = money(s.amount) + " $";
+    } else {
+      el("conv").textContent = money(s.amount) + " " + SIGN[s.cur] + " = " +
+        money(s.usd) + " $ по курсу ЦБ Турции на " + RATE.date;
+    }
+  }
+
+  ["price", "cur", "goal", "kind", "done"].forEach(function (id) {
+    el(id).addEventListener("input", render);
+    el(id).addEventListener("change", render);
+  });
+
+  render();
 })();
 </script>
 </body>
