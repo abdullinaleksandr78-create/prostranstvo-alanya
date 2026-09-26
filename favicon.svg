@@ -1,0 +1,10 @@
+<svg width="512" height="512" viewBox="0 3 100 100"
+     xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Пространство">
+  <path d="M20 30 H80 M20 30 V76 M80 30 V76 M50 30 V76"
+        fill="none" stroke="#7A5B1F" stroke-width="9" stroke-linecap="square"/>
+  <path d="M20 32 A11 11 0 0 1 20 54"
+        fill="none" stroke="#7A5B1F" stroke-width="7"/>
+  <path d="M59.19 48.81 A13 13 0 1 0 59.19 67.19"
+        fill="none" stroke="#7A5B1F" stroke-width="7" stroke-linecap="round"/>
+</svg>
