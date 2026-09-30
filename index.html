@@ -173,6 +173,7 @@ h2.sec{font-size:clamp(21px,2.6vw,26px)}
   transition:filter .15s ease,transform .08s ease}
 .cta:hover{filter:brightness(1.1)} .cta:active{transform:scale(.99)}
 .cta svg{width:20px;height:20px;flex:none}
+.hint{margin-top:10px;font-size:13.5px;color:var(--ink-3);max-width:30em}
 
 footer{border-top:1px solid var(--line);background:var(--surface);
   padding-block:22px 34px;font-size:12.5px;color:var(--ink-3);line-height:1.6}
@@ -197,7 +198,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);
         <span>проверка недвижимости · Турция</span>
       </div>
     </div>
-    <a class="tg" href="https://t.me/spikalilia" rel="noopener" id="tg-top">Написать в Telegram</a>
+    <a class="tg" href="https://t.me/prostranstvo_alanya_bot" rel="noopener" id="tg-top">Проверить объект</a>
   </div>
 </header>
 
@@ -212,10 +213,11 @@ footer{border-top:1px solid var(--line);background:var(--surface);
         <span class="mark">Первая проверка бесплатно</span>
         <span class="mark">Фильтр до юриста</span>
       </div>
-      <a class="cta" href="https://t.me/spikalilia" rel="noopener" id="tg-hero">
+      <a class="cta" href="https://t.me/prostranstvo_alanya_bot" rel="noopener" id="tg-hero">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.64 6.8-1.55 7.31c-.12.52-.42.65-.85.4l-2.35-1.73-1.13 1.09c-.13.13-.24.24-.48.24l.17-2.43 4.42-4c.19-.17-.04-.27-.3-.1l-5.46 3.44-2.35-.73c-.51-.16-.52-.51.11-.76l9.17-3.54c.42-.15.79.1.6.81z"/></svg>
         Проверить мой объект
       </a>
+      <p class="hint">Бот задаст четыре вопроса и сразу покажет результат. Дальше — проверка по кадастру.</p>
     </div>
 
     <div class="tool">
@@ -373,7 +375,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);
   <p class="lede">В Турции сведения о собственнике, ипотеке и арестах закрыты. Их не получит ни агентство, ни юрист, ни покупатель — только сам владелец открывает их через государственный сервис Веб-Тапу: бесплатно, с телефона, за две минуты.</p>
   <p class="lede">История владельцев тоже закрыта. Для гражданства она решает: объект нельзя купить у иностранца и нельзя взять, если его уже оформляли под гражданство. Эту часть проверяет юрист, а я отмечу её в отчёте как вопрос.</p>
   <p class="lede">Я скажу, как именно об этом попросить. Если продавец показывает выписку — разговор пошёл. Если отказывается, вы узнали это до задатка, и это тоже ответ.</p>
-  <a class="cta" href="https://t.me/spikalilia" rel="noopener" id="tg-bottom">
+  <a class="cta" href="https://t.me/prostranstvo_alanya_bot" rel="noopener" id="tg-bottom">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.64 6.8-1.55 7.31c-.12.52-.42.65-.85.4l-2.35-1.73-1.13 1.09c-.13.13-.24.24-.48.24l.17-2.43 4.42-4c.19-.17-.04-.27-.3-.1l-5.46 3.44-2.35-.73c-.51-.16-.52-.51.11-.76l9.17-3.54c.42-.15.79.1.6.81z"/></svg>
     Прислать объект
   </a>
@@ -384,7 +386,8 @@ footer{border-top:1px solid var(--line);background:var(--surface);
 <footer>
   <div class="wrap narrow">
     ПРОСТРАНСТВО · проверка недвижимости на средиземноморском побережье Турции<br>
-    prostranstvo-alanya.ru · <span id="foot-tg">@spikalilia</span><br><br>
+    prostranstvo-alanya.ru · бот <span id="foot-bot">@prostranstvo_alanya_bot</span><br>
+    Есть вопрос не по объекту — напишите лично: <a id="foot-person" href="https://t.me/spikalilia" rel="noopener">@spikalilia</a><br><br>
     Пороги: ВНЖ от 200 000 $ (с 16.10.2023), гражданство от 400 000 $ — по цене в ТАПУ и курсу ЦБ Турции на дату оформления. Курс в расчёте: 25.09.2026, 1 $ = 48,8780 ₺, 1 € = 55,6880 ₺.<br><br>
     Данные: государственный кадастр Турции (TKGM), Центральный банк Турции (TCMB), торговый реестр (Ticaret Sicil).<br>
     Страница не является юридической консультацией и не рекомендует покупать или отказываться. Перед сделкой — юрист.
@@ -395,8 +398,9 @@ footer{border-top:1px solid var(--line);background:var(--surface);
 (function () {
   "use strict";
 
-  // Адрес для связи — меняется здесь и подставляется во все ссылки.
-  var TELEGRAM = "spikalilia";
+  // Адреса меняются здесь и подставляются во все ссылки на странице.
+  var BOT = "prostranstvo_alanya_bot";   // приём заявок
+  var PERSON = "spikalilia";             // живой разговор
 
   // Курс ЦБ Турции (TCMB), ForexSelling на 25.09.2026.
   var RATE = { date: "25.09.2026", USD: 48.8780, EUR: 55.6880, TRY: 1 };
@@ -408,9 +412,15 @@ footer{border-top:1px solid var(--line);background:var(--surface);
 
   ["tg-top", "tg-hero", "tg-bottom"].forEach(function (id) {
     var node = el(id);
-    if (node) { node.href = "https://t.me/" + TELEGRAM; node.target = "_blank"; }
+    if (node) { node.href = "https://t.me/" + BOT; node.target = "_blank"; }
   });
-  el("foot-tg").textContent = "@" + TELEGRAM;
+  el("foot-bot").textContent = "@" + BOT;
+  var person = el("foot-person");
+  if (person) {
+    person.href = "https://t.me/" + PERSON;
+    person.textContent = "@" + PERSON;
+    person.target = "_blank";
+  }
 
   function money(n) {
     return Math.round(n).toLocaleString("ru-RU").replace(/ /g, " ");
