@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Проходит ли объект в Турции под ВНЖ или гражданство: расчёт порога по курсу ЦБ Турции и проверка по государственному кадастру. Первая проверка бесплатно.">
-<meta property="og:title" content="Пространство — проверка объекта в Турции">
-<meta property="og:description" content="Посчитайте порог под ВНЖ или гражданство прямо на странице. Потом пришлите объект — сверю с кадастром.">
+<meta name="description" content="Проверка недвижимости в Турции до покупки: сверка объявления с государственным кадастром и расчёт порога ВНЖ или гражданства по курсу ЦБ Турции. Первая проверка бесплатно.">
+<meta property="og:title" content="Пространство — проверка недвижимости в Турции">
+<meta property="og:description" content="Посчитайте порог ВНЖ или гражданства прямо на странице. Потом пришлите объект — сверю с кадастром.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://prostranstvo-alanya.ru/">
 <meta property="og:locale" content="ru_RU">
@@ -133,6 +133,16 @@ h2.sec{font-size:clamp(21px,2.6vw,26px)}
 .card b{display:block;font-size:15px}
 .card small{display:block;font-size:13.5px;color:var(--ink-2);margin-top:5px;line-height:1.5}
 
+.cases{margin-top:18px;display:grid;gap:10px;counter-reset:c}
+.cases li{position:relative;counter-increment:c;background:var(--surface);
+  border:1px solid var(--line);border-radius:11px;padding:15px 16px 15px 52px}
+.cases li:before{content:counter(c);position:absolute;left:16px;top:15px;
+  width:24px;height:24px;border-radius:50%;background:var(--accent-soft);
+  color:var(--accent-ink);font-family:"IBM Plex Mono",monospace;font-size:12.5px;
+  font-weight:600;display:flex;align-items:center;justify-content:center}
+.cases b{display:block;font-size:15px;line-height:1.3}
+.cases small{display:block;font-size:13.5px;color:var(--ink-2);margin-top:5px;line-height:1.5}
+
 .send{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
 .step{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:15px 16px}
 .step .n{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;color:var(--accent-ink)}
@@ -184,7 +194,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);
       </svg>
       <div>
         <b>ПРОСТРАНСТВО</b>
-        <span>проверка объекта · Аланья</span>
+        <span>проверка недвижимости · Турция</span>
       </div>
     </div>
     <a class="tg" href="https://t.me/spikalilia" rel="noopener" id="tg-top">Написать в Telegram</a>
@@ -194,12 +204,13 @@ footer{border-top:1px solid var(--line);background:var(--surface);
 <div class="hero">
   <div class="wrap grid">
     <div>
-      <h1>Проходит ли ваш объект под ВНЖ или гражданство</h1>
-      <p class="sub">Посчитайте прямо здесь: порог считается по цене в ТАПУ и курсу ЦБ Турции на дату оформления. Потом пришлите объект — сверю с государственным кадастром.</p>
+      <h1>Проверьте недвижимость в Турции до покупки</h1>
+      <p class="sub">Посчитайте прямо здесь, дотягивает ли цена до порога ВНЖ или гражданства: он считается по цене в ТАПУ и курсу ЦБ Турции на дату оформления. Потом пришлите объект — сверю с государственным кадастром.</p>
       <div class="marks">
         <span class="mark">Кадастр TKGM</span>
         <span class="mark">Курс ЦБ Турции</span>
         <span class="mark">Первая проверка бесплатно</span>
+        <span class="mark">Фильтр до юриста</span>
       </div>
       <a class="cta" href="https://t.me/spikalilia" rel="noopener" id="tg-hero">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.64 6.8-1.55 7.31c-.12.52-.42.65-.85.4l-2.35-1.73-1.13 1.09c-.13.13-.24.24-.48.24l.17-2.43 4.42-4c.19-.17-.04-.27-.3-.1l-5.46 3.44-2.35-.73c-.51-.16-.52-.51.11-.76l9.17-3.54c.42-.15.79.1.6.81z"/></svg>
@@ -253,7 +264,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);
       <p class="why" id="why"></p>
       <p class="conv mono" id="conv"></p>
 
-      <p class="note">Расчёт по цене продавца: цены в ТАПУ до сделки ещё нет. Это ориентир, а не юридическое заключение. Назначение и площадь проверяются по кадастру — пришлите объект.</p>
+      <p class="note">Расчёт по цене продавца: цены в ТАПУ до сделки ещё нет. Это ориентир, а не юридическое заключение. Назначение и площадь проверяются по кадастру — пришлите объект. Историю владельцев проверяет юрист.</p>
     </div>
   </div>
 </div>
@@ -274,26 +285,55 @@ footer{border-top:1px solid var(--line);background:var(--surface);
 </section>
 
 <section>
+  <div class="eyebrow">Зачем это нужно</div>
+  <h2 class="sec">Пять ситуаций, которые видно в кадастре и не видно в объявлении</h2>
+  <p class="lede">Ни одна из них не выдумана для красоты: это то, что реестр показывает постоянно, а продавец не обязан рассказывать.</p>
+  <ol class="cases">
+    <li>
+      <b>Продают как квартиру, а в реестре апарт</b>
+      <small>Назначение записано в ТАПУ. Апарт-отель под ВНЖ и гражданство не идёт при любой цене — человек узнаёт об этом в миграционном управлении, уже купив.</small>
+    </li>
+    <li>
+      <b>Площадь в объявлении и площадь в ТАПУ — разные</b>
+      <small>В объявлении обычно брутто: с балконами и долей общих площадей. В реестре нетто. Разница меняет и цену за метр, и оценку SPK, от которой зависит порог гражданства.</small>
+    </li>
+    <li>
+      <b>Цена стоит у самого порога</b>
+      <small>205 000 $ формально выше порога ВНЖ. Но запас меньше 5%, а порог считают по сумме в ТАПУ и курсу ЦБ Турции на дату оформления — курс может увести сумму ниже 200 000 $.</small>
+    </li>
+    <li>
+      <b>На соседнем участке разрешено строить</b>
+      <small>Назначение участка «Arsa» означает, что там встанет дом. Вид на море, за который доплатили, закрывается — а увидеть это можно было до задатка.</small>
+    </li>
+    <li>
+      <b>Рядом не жильё, а что-то другое</b>
+      <small>У соседнего участка бывает назначение «Dini Tesis Alanı» — религиозное учреждение, или «Yüksek Öğretim Alanı» — вуз. Это влияет и на жизнь, и на перепродажу.</small>
+    </li>
+  </ol>
+</section>
+
+<section>
   <div class="eyebrow">Что прислать</div>
-  <h2 class="sec">Две вещи, обе с телефона</h2>
+  <h2 class="sec">Проще всего — ссылка на объявление</h2>
+  <p class="lede">В ней уже есть карта, цена, площадь и фотографии. Скопируйте адрес из строки браузера — этого хватит.</p>
   <div class="send">
     <div class="step">
       <span class="n">01</span>
-      <b>Plus Code объекта</b>
-      <small>Код указывает на здание с точностью до 14 метров. Адрес словами не подходит: в Махмутларе он приводит к центру района. В Google Картах нажмите на дом — строка с плюсом под адресом.</small>
-      <span class="code">8G8JF4Q7+2W</span>
+      <b>Ссылка на объявление</b>
+      <small>Авито, Emlakjet, ЦИАН, турецкие сайты, инстаграм застройщика — подойдёт любая. Если объявления в сети нет, пришлите название комплекса и район, геопозицию из Telegram или адрес.</small>
     </div>
     <div class="step">
       <span class="n">02</span>
-      <b>Скриншоты объявления</b>
-      <small>Экран с характеристиками — площадь, этаж, этажность, цена — и текст описания. Обычно два-три снимка. Источник любой: Авито, турецкие сайты, переписка с агентом.</small>
+      <b>Скриншоты, если ссылки нет</b>
+      <small>Экран с характеристиками — площадь, этаж, этажность, цена — и текст описания. Обычно два-три снимка. Подойдёт и переписка с агентом.</small>
     </div>
   </div>
+  <p class="lede">Если комплекс в объявлении не назван, а точка стоит только на карте — откройте Google Карты, нажмите правой кнопкой на нужный дом и скопируйте первую строку меню: это координаты.</p>
 </section>
 
 <section>
   <div class="eyebrow">Сколько стоит</div>
-  <h2 class="sec">Три уровня</h2>
+  <h2 class="sec">Первая проверка — бесплатно</h2>
   <div class="tiers">
     <div class="tier free">
       <div><b>Первый объект</b><small>Участок, запись реестра, соседи, расчёт порога под вашу цель.</small></div>
@@ -304,10 +344,15 @@ footer{border-top:1px solid var(--line);background:var(--surface);
       <span class="p">39 €</span>
     </div>
     <div class="tier">
+      <div><b>Пакет: три объекта</b><small>Полный отчёт по трём объектам, когда сравниваете варианты. Выходит 33 € за объект.</small></div>
+      <span class="p">99 €</span>
+    </div>
+    <div class="tier">
       <div><b>Разбор документов</b><small>Запрос продавцу на турецком и разбор того, что он пришлёт. Плюс проверка застройщика по торговому реестру — эти данные открыты.</small></div>
       <span class="p">89 €</span>
     </div>
   </div>
+  <p class="lede">Оплата в рублях по курсу ЦБ РФ на день оплаты или в евро.</p>
 
   <div class="box">
     <h3>Купите со мной — 39 € вернутся</h3>
@@ -317,9 +362,16 @@ footer{border-top:1px solid var(--line);background:var(--surface);
 </section>
 
 <section>
+  <div class="eyebrow">Проверка и юрист</div>
+  <h2 class="sec">Фильтр до юриста, а не вместо него</h2>
+  <p class="lede">На сделке нужен юрист. Только консультация адвоката в Анталье стоит от 4 000 ₺ (около 72 €) за первый час по минимальному тарифу, а проверка объекта и сопровождение сделки — дороже. Платить так за каждый вариант накладно. Проверка отсеивает объекты, которые не сходятся по площади, назначению или порогу, и к юристу вы идёте только с финалистом.</p>
+</section>
+
+<section>
   <div class="eyebrow">Честно</div>
   <h2 class="sec">Чего не видно никому</h2>
   <p class="lede">В Турции сведения о собственнике, ипотеке и арестах закрыты. Их не получит ни агентство, ни юрист, ни покупатель — только сам владелец открывает их через государственный сервис Веб-Тапу: бесплатно, с телефона, за две минуты.</p>
+  <p class="lede">История владельцев тоже закрыта. Для гражданства она решает: объект нельзя купить у иностранца и нельзя взять, если его уже оформляли под гражданство. Эту часть проверяет юрист, а я отмечу её в отчёте как вопрос.</p>
   <p class="lede">Я скажу, как именно об этом попросить. Если продавец показывает выписку — разговор пошёл. Если отказывается, вы узнали это до задатка, и это тоже ответ.</p>
   <a class="cta" href="https://t.me/spikalilia" rel="noopener" id="tg-bottom">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.64 6.8-1.55 7.31c-.12.52-.42.65-.85.4l-2.35-1.73-1.13 1.09c-.13.13-.24.24-.48.24l.17-2.43 4.42-4c.19-.17-.04-.27-.3-.1l-5.46 3.44-2.35-.73c-.51-.16-.52-.51.11-.76l9.17-3.54c.42-.15.79.1.6.81z"/></svg>
