@@ -413,7 +413,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);
 
   ["tg-top", "tg-hero", "tg-bottom"].forEach(function (id) {
     var node = el(id);
-    if (node) { node.href = "https://t.me/" + BOT; node.target = "_blank"; }
+    if (node) { node.href = "https://t.me/" + BOT + "?start=check"; node.target = "_blank"; }
   });
   el("foot-bot").textContent = "@" + BOT;
   var person = el("foot-person");

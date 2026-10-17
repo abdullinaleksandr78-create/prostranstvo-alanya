@@ -95,7 +95,6 @@ h2{font-size:clamp(23px,3vw,32px);margin-bottom:8px}
 .opts button{font:inherit;font-size:15px;padding:9px 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--ground);color:var(--ink);cursor:pointer}
 .opts button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink);font-weight:700}
 #result{display:none;margin-top:22px;padding:16px;border-radius:12px;background:var(--good-soft)}
-#msg{white-space:pre-wrap;font-family:"IBM Plex Mono",monospace;font-size:14px;margin-top:8px}
 .steps{counter-reset:s}
 .steps li{counter-increment:s;padding:14px 0 14px 48px;position:relative;border-top:1px solid var(--line)}
 .steps li:before{content:counter(s);position:absolute;left:0;top:12px;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);font-weight:800;display:grid;place-items:center}
@@ -138,7 +137,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding-block:
 
 <section id="podbor"><div class="wrap">
   <h2>Подбор под ваш бюджет</h2>
-  <p class="lead">Три вопроса. В конце получите готовое сообщение — отправьте его в Telegram, и я пришлю 3–5 подходящих объектов с ценами и условиями.</p>
+  <p class="lead">Три вопроса — и бот в Telegram пришлёт подходящие объекты с ценами и условиями.</p>
   <div class="quiz">
     <div class="q" data-k="Бюджет"><b>1. Бюджет</b><div class="opts">
       <button type="button">до €60 000</button><button type="button">€60–70 тыс.</button><button type="button">€70–80 тыс.</button><button type="button">больше €80 000</button></div></div>
@@ -147,9 +146,8 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding-block:
     <div class="q" data-k="Оплата"><b>3. Как удобнее платить</b><div class="opts">
       <button type="button">сразу всю сумму</button><button type="button">рассрочка</button><button type="button">пока не знаю</button></div></div>
     <div id="result">
-      <b>Готово. Скопируйте и отправьте:</b>
-      <div id="msg"></div>
-      <a class="cta" id="send" href="https://t.me/prostranstvo_alanya_bot" rel="noopener">Скопировать и открыть Telegram</a>
+      <b>Готово! Откройте бот — ответы уже там, подборку пришлём в Telegram.</b>
+      <a class="cta" id="send" href="https://t.me/prostranstvo_alanya_bot" rel="noopener" target="_blank">Получить подборку в Telegram</a>
     </div>
   </div>
 </div></section>
@@ -167,7 +165,7 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding-block:
 <section><div class="wrap">
   <h2>Уже нашли объект?</h2>
   <p class="lead">Пришлите ссылку — сверю объявление с государственным кадастром Турции и посчитаю порог ВНЖ по курсу ЦБ. Первая проверка бесплатно.</p>
-  <a class="cta ghost" href="/proverka/">Проверить объект</a>
+  <a class="cta ghost" href="https://t.me/prostranstvo_alanya_bot?start=check" rel="noopener" target="_blank">Проверить объект в боте</a> &nbsp; <a href="/proverka/">или посчитать на сайте</a>
 </div></section>
 
 <footer><div class="wrap">
@@ -178,18 +176,20 @@ footer{border-top:1px solid var(--line);background:var(--surface);padding-block:
 
 <script>
 (function(){
-  var ans={};
+  var IDX={};
   document.querySelectorAll('.q').forEach(function(q){
-    q.querySelectorAll('button').forEach(function(b){
+    q.querySelectorAll('button').forEach(function(b,i){
       b.addEventListener('click',function(){
         q.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false')});
-        b.setAttribute('aria-pressed','true'); ans[q.dataset.k]=b.textContent; show();
+        b.setAttribute('aria-pressed','true'); IDX[q.dataset.k]=i; show();
       });
     });
   });
-  function text(){return 'Здравствуйте! Хочу подборку квартир в Аланье.\nБюджет: '+(ans['Бюджет']||'—')+'\nЦель: '+(ans['Цель']||'—')+'\nОплата: '+(ans['Оплата']||'—');}
-  function show(){ if(Object.keys(ans).length<3) return; document.getElementById('msg').textContent=text(); document.getElementById('result').style.display='block'; }
-  document.getElementById('send').addEventListener('click',function(){ try{navigator.clipboard.writeText(text())}catch(e){} });
+  function show(){
+    if(Object.keys(IDX).length<3) return;
+    document.getElementById('send').href='https://t.me/prostranstvo_alanya_bot?start=p_'+IDX['Бюджет']+'_'+IDX['Цель']+'_'+IDX['Оплата'];
+    document.getElementById('result').style.display='block';
+  }
 })();
 </script>
 </body>
